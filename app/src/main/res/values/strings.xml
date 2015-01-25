@@ -3,6 +3,7 @@
 
     <string name="app_name">VeryWeather</string>
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
 
     <!--Titles for current condition screen-->
     <string name="cur_clouds_title">Cloudiness</string>

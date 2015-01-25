@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -47,7 +51,7 @@ public class CurrentFragment extends Fragment {
     }
 
     public void updateCurrentConditions() {
-        GetCurrentWeather currentWeather = new GetCurrentWeather();
+        CurrentWeather currentWeather = new CurrentWeather();
         currentWeather.execute("625144");
     }
 
@@ -60,6 +64,12 @@ public class CurrentFragment extends Fragment {
     public void onStart() {
         updateCurrentConditions();
         super.onStart();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -80,8 +90,23 @@ public class CurrentFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.current_conditions, menu);
+    }
 
-    private class GetCurrentWeather extends AsyncTask<String, Void, Conditions> {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            updateCurrentConditions();
+            Toast.makeText(getActivity(), "Weather updated!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private class CurrentWeather extends AsyncTask<String, Void, Conditions> {
 
         private String getTime(long time) {
             Date date = new Date(time * 1000l);
