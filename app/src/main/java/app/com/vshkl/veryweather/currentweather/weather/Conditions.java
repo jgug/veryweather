@@ -216,5 +216,4 @@ public class Conditions {
     public void setCod(int cod) {
         this.cod = cod;
     }
-
 }
