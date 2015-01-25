@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VeryWeather</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Titles for current condition screen-->
+    <string name="cur_clouds_title">Cloudiness</string>
+    <string name="cur_humidity_title">Humidity</string>
+    <string name="cur_pressure_title">Pressure</string>
+    <string name="cur_wind_title">Wind</string>
+    <string name="cur_sun_title">Daylight</string>
+
+</resources>
