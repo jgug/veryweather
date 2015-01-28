@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import java.util.Locale;
 
 import app.com.vshkl.veryweather.currentweather.CurrentFragment;
-import app.com.vshkl.veryweather.currentweather.FragmentTest;
+import app.com.vshkl.veryweather.forecastweather.ForecastFragment;
+import app.com.vshkl.veryweather.weathermap.WeatherMapFragment;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -91,7 +92,9 @@ public class MainActivity extends ActionBarActivity {
                 case 0:
                     return fragment = new CurrentFragment();
                 case 1:
-                    return fragment = new FragmentTest();
+                    return fragment = new ForecastFragment();
+                case 2:
+                    return fragment = new WeatherMapFragment();
                 default:
                     break;
             }
@@ -101,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -112,6 +115,8 @@ public class MainActivity extends ActionBarActivity {
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
+                case 3:
+                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }

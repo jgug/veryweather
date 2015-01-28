@@ -51,7 +51,7 @@ public class CurrentFragment extends Fragment {
     }
 
     public void updateCurrentConditions() {
-        CurrentWeather currentWeather = new CurrentWeather();
+        GetCurrentWeather currentWeather = new GetCurrentWeather();
         currentWeather.execute("625144");
     }
 
@@ -106,7 +106,7 @@ public class CurrentFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private class CurrentWeather extends AsyncTask<String, Void, Conditions> {
+    private class GetCurrentWeather extends AsyncTask<String, Void, Conditions> {
 
         private String getTime(long time) {
             Date date = new Date(time * 1000l);
@@ -151,14 +151,13 @@ public class CurrentFragment extends Fragment {
                         .build();
 
                 URL url = new URL(buildUri.toString());
-                Log.v("URL", url.toString());
+                Log.v("Current URL", url.toString());
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                StringBuilder stringb = new StringBuilder();
                 if (inputStream == null) {
                     return null;
                 }
