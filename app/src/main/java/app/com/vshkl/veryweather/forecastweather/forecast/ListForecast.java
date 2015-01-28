@@ -15,19 +15,19 @@ public class ListForecast {
     @Expose
     private Double pressure;
     @Expose
-    private Integer humidity;
+    private Double humidity;
     @Expose
     private List<Weather> weather = new ArrayList<Weather>();
     @Expose
     private Double speed;
     @Expose
-    private Integer deg;
+    private Double deg;
     @Expose
-    private Integer clouds;
+    private Double clouds;
     @Expose
     private Double snow;
     @Expose
-    private Integer rain;
+    private Double rain;
 
     /**
      * @return The dt
@@ -74,14 +74,14 @@ public class ListForecast {
     /**
      * @return The humidity
      */
-    public Integer getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
     /**
      * @param humidity The humidity
      */
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
@@ -116,28 +116,28 @@ public class ListForecast {
     /**
      * @return The deg
      */
-    public Integer getDeg() {
+    public Double getDeg() {
         return deg;
     }
 
     /**
      * @param deg The deg
      */
-    public void setDeg(Integer deg) {
+    public void setDeg(Double deg) {
         this.deg = deg;
     }
 
     /**
      * @return The clouds
      */
-    public Integer getClouds() {
+    public Double getClouds() {
         return clouds;
     }
 
     /**
      * @param clouds The clouds
      */
-    public void setClouds(Integer clouds) {
+    public void setClouds(Double clouds) {
         this.clouds = clouds;
     }
 
@@ -158,14 +158,14 @@ public class ListForecast {
     /**
      * @return The rain
      */
-    public Integer getRain() {
+    public Double getRain() {
         return rain;
     }
 
     /**
      * @param rain The rain
      */
-    public void setRain(Integer rain) {
+    public void setRain(Double rain) {
         this.rain = rain;
     }
 

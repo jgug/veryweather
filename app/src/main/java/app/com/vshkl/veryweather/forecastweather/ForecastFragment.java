@@ -90,7 +90,7 @@ public class ForecastFragment extends ListFragment {
             Forecast forecast = null;
 
             try {
-                final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?i";
+                final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
                 final String QUERY_PARAM = "id";
                 final String FORMAT_PARAM = "mode";
                 final String UNITS_PARAM = "units";
