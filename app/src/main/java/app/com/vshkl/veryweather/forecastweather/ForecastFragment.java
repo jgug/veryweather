@@ -4,14 +4,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -22,47 +22,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.forecastweather.forecast.Forecast;
 import app.com.vshkl.veryweather.forecastweather.forecast.ListForecast;
 
-/**
- * Created by jgug on 27.1.15.
- */
-public class ForecastFragment extends ListFragment {
+public class ForecastFragment extends Fragment {
 
-    String[] fakeData = new String[]{"Pogoda! Khorosho!", "Pogoda! Khorosho!", "Pogoda! Khorosho!",
-            "Pogoda! Khorosho!", "Pogoda! Khorosho!", "Pogoda! Khorosho!", "Pogoda! Khorosho!",};
+    private RecyclerView recyclerView;
+    private ForecastAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
-    SwipeRefreshLayout refreshLayout;
-
-    TextView text;
-    ArrayAdapter<String> adapter;
+    private List<ListForecast> forecastList = null;
 
     public void updateForecast() {
         GetForecast forecast = new GetForecast();
         forecast.execute("625144");
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-//        refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.activity_main_swipe_refresh_layout);
-//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//            }
-//        });
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                getActivity(), android.R.layout.simple_list_item_1, fakeData);
-//        setListAdapter(adapter);
-
-        text = (TextView) getActivity().findViewById(R.id.foreast_text);
     }
 
     @Override
@@ -72,8 +48,21 @@ public class ForecastFragment extends ListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fregment_forecast_recycleview, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private class GetForecast extends AsyncTask<String, Void, Forecast> {
@@ -142,22 +131,8 @@ public class ForecastFragment extends ListFragment {
         @Override
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
-                List<ListForecast> list1 = new ArrayList<>();
-                List<String> list2 = new ArrayList<>();
-                list1 = forecast.getList();
-                for (ListForecast i : list1) {
-                    StringBuilder sb = new StringBuilder();
-                    list2.add(
-                            sb.append(i.getTemp().getMax().toString())
-                                    .append("°")
-                                    .append("  -  ")
-                                    .append(i.getTemp().getMin().toString())
-                                    .append("°").toString());
-                }
-                String[] str = list2.toArray(new String[list2.size()]);
-                adapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_list_item_1, str);
-                setListAdapter(adapter);
+                adapter = new ForecastAdapter(forecast.getList());
+                recyclerView.setAdapter(adapter);
             }
         }
     }
