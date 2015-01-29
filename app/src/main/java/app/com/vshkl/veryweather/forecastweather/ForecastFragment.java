@@ -1,8 +1,10 @@
 package app.com.vshkl.veryweather.forecastweather;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -38,7 +40,13 @@ public class ForecastFragment extends Fragment {
 
     public void updateForecast() {
         GetForecast forecast = new GetForecast();
-        forecast.execute("625144");
+
+        // Load SharedPreference for location
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+
+        forecast.execute(location);
     }
 
     @Override
@@ -72,9 +80,14 @@ public class ForecastFragment extends Fragment {
             HttpURLConnection urlConnection = null;
             BufferedReader bufferedReader = null;
 
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = prefs.getString(getString(R.string.pref_location_key),
+                    getString(R.string.pref_location_default));
+            String days = prefs.getString(getString(R.string.pref_forecast_key),
+                    getString(R.string.pref_forecast_default));
+
             String format = "json";
             String units = "metric";
-            String days = "7";
 
             Forecast forecast = null;
 
@@ -131,7 +144,7 @@ public class ForecastFragment extends Fragment {
         @Override
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
-                adapter = new ForecastAdapter(forecast.getList());
+                adapter = new ForecastAdapter(forecast.getList(), getActivity());
                 recyclerView.setAdapter(adapter);
             }
         }

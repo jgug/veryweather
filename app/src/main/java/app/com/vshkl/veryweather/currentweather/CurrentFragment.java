@@ -1,8 +1,10 @@
 package app.com.vshkl.veryweather.currentweather;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import java.util.Date;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.currentweather.weather.Conditions;
+import app.com.vshkl.veryweather.misc.Misc;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -52,7 +55,13 @@ public class CurrentFragment extends Fragment {
 
     public void updateCurrentConditions() {
         GetCurrentWeather currentWeather = new GetCurrentWeather();
-        currentWeather.execute("625144");
+
+        // Load SharedPreference for location
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+
+        currentWeather.execute(location);
     }
 
     /**
@@ -214,8 +223,16 @@ public class CurrentFragment extends Fragment {
                 description.setText(sb.toString());
                 sb.setLength(0);
                 // Build now temp
-                sb.append(Math.round(conditions.getMain().getTemp()))
-                        .append("°");
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String tempUnit = prefs.getString(getString(R.string.pref_temp_key),
+                        getString(R.string.pref_temp_default));
+                if (tempUnit.equals("c")) {
+                    sb.append(Math.round(conditions.getMain().getTemp()))
+                            .append("°");
+                } else if (tempUnit.equals("f")) {
+                    sb.append(Math.round(Misc.toFahrenheit(conditions.getMain().getTemp())))
+                            .append("°");
+                }
                 temp_now.setText(sb.toString());
                 sb.setLength(0);
                 // Build humidity

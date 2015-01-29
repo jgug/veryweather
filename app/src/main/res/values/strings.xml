@@ -12,9 +12,37 @@
     <string name="cur_wind_title">Wind</string>
     <string name="cur_sun_title">Daylight</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="hello_world">Hello world!</string>
+    <!--Settings location-->
+    <string name="pref_location">Location</string>
+    <string name="pref_location_key">pref_location_key</string>
+    <string name="pref_location_descr">Specify city ID</string>
+    <string name="pref_location_default">625144</string>
+
+    <!--Settings units-->
+    <string name="pref_units">Units</string>
+    <!--Temperature-->
+    <string name="pref_temp_title">Temperature</string>
+    <string name="pref_temp_key">pref_temp_key</string>
+    <string name="pref_temp_desrc">Select temperature units</string>
+    <string name="pref_temp_default">metric</string>
+    <!--Wind-->
+    <string name="pref_wind_title">Wind</string>
+    <string name="pref_wind_descr">Select wind speed units</string>
+    <string name="pref_wind_default">m/s</string>
+    <!--Pressure-->
+    <string name="pref_pressure_title">Pressure</string>
+    <string name="pref_pressure_descr">Select atmospheric pressure units</string>
+    <string name="pref_pressure_default">hPa</string>
+
+    <!--Settings forecast-->
+    <string name="pref_forecast">Forecast</string>
+    <string name="pref_forecast_key">pref_forecast_key</string>
+    <string name="pref_forecast_title">Forecast</string>
+    <string name="pref_forecast_descr">Days of forecast</string>
+    <string name="pref_forecast_default">7</string>
+
+    <!--Custom preference-->
+    <string name="pref_custom_title">Custom preference</string>
+    <string name="pref_custom_key">pref_custom_key</string>
 
 </resources>

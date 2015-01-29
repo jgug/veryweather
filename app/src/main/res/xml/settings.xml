@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings_loc"
+        android:title="@string/pref_location">
+
+        <EditTextPreference
+            android:defaultValue="@string/pref_location_default"
+            android:key="@string/pref_location_key"
+            android:selectAllOnFocus="true"
+            android:summary="@string/pref_location_descr"
+            android:title="@string/pref_location" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings_unit"
+        android:title="@string/pref_units">
+
+        <ListPreference
+            android:defaultValue="c"
+            android:entries="@array/units_array"
+            android:entryValues="@array/units_values"
+            android:key="@string/pref_temp_key"
+            android:summary="@string/pref_temp_desrc"
+            android:title="@string/pref_temp_title" />
+
+        <ListPreference
+            android:defaultValue="ms"
+            android:entries="@array/wind_array"
+            android:entryValues="@array/wind_values"
+            android:key="pref_wind_key"
+            android:summary="@string/pref_wind_descr"
+            android:title="@string/cur_wind_title" />
+
+        <ListPreference
+            android:defaultValue="mb"
+            android:entries="@array/pressure_array"
+            android:entryValues="@array/pressure_values"
+            android:key="pref_pressure_key"
+            android:summary="@string/pref_pressure_descr"
+            android:title="@string/pref_pressure_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings_forecast"
+        android:title="@string/pref_forecast">
+
+        <EditTextPreference
+            android:defaultValue="@string/pref_forecast_default"
+            android:key="@string/pref_forecast_key"
+            android:summary="@string/pref_forecast_descr"
+            android:title="@string/pref_forecast_title" />
+
+    </PreferenceCategory>
+
+    <Preference
+        android:key="@string/pref_custom_key"
+        android:title="@string/pref_custom_title">
+
+    </Preference>
+
+</PreferenceScreen>
