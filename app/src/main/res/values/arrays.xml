@@ -20,7 +20,7 @@
 
     <string-array name="wind_values">
         <item>mps</item>
-        <item>kmph</item>
+        <item>kph</item>
         <item>mph</item>
     </string-array>
 

@@ -27,10 +27,12 @@
     <string name="pref_temp_default">metric</string>
     <!--Wind-->
     <string name="pref_wind_title">Wind</string>
+    <string name="pref_wind_key">pref_wind_key</string>
     <string name="pref_wind_descr">Select wind speed units</string>
     <string name="pref_wind_default">m/s</string>
     <!--Pressure-->
     <string name="pref_pressure_title">Pressure</string>
+    <string name="pref_pressure_key">pref_pressure_key</string>
     <string name="pref_pressure_descr">Select atmospheric pressure units</string>
     <string name="pref_pressure_default">hPa</string>
 

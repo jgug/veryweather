@@ -30,7 +30,7 @@
             android:defaultValue="ms"
             android:entries="@array/wind_array"
             android:entryValues="@array/wind_values"
-            android:key="pref_wind_key"
+            android:key="@string/pref_wind_key"
             android:summary="@string/pref_wind_descr"
             android:title="@string/cur_wind_title" />
 
@@ -38,7 +38,7 @@
             android:defaultValue="mb"
             android:entries="@array/pressure_array"
             android:entryValues="@array/pressure_values"
-            android:key="pref_pressure_key"
+            android:key="@string/pref_pressure_key"
             android:summary="@string/pref_pressure_descr"
             android:title="@string/pref_pressure_title" />
 

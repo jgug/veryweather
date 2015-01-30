@@ -218,45 +218,86 @@ public class CurrentFragment extends Fragment {
                         .append(getTime(conditions.getDt()));
                 title.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build description
                 sb.append(conditions.getWeather().get(0).getDescription());
                 description.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build now temp
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                String tempUnit = prefs.getString(getString(R.string.pref_temp_key),
+                String unit = prefs.getString(getString(R.string.pref_temp_key),
                         getString(R.string.pref_temp_default));
-                if (tempUnit.equals("c")) {
-                    sb.append(Math.round(conditions.getMain().getTemp()))
-                            .append("°");
-                } else if (tempUnit.equals("f")) {
-                    sb.append(Math.round(Misc.toFahrenheit(conditions.getMain().getTemp())))
-                            .append("°");
+                switch (unit) {
+                    case "c":
+                        sb.append(Math.round(conditions.getMain().getTemp()))
+                                .append("°");
+                        break;
+                    case "f":
+                        sb.append(Math.round(Misc.toFahrenheit(conditions.getMain().getTemp())))
+                                .append("°");
+                        break;
                 }
                 temp_now.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build humidity
                 sb.append(conditions.getMain().getHumidity())
                         .append(" %");
                 humidity.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build pressure
-                sb.append(Math.round(conditions.getMain().getPressure()))
-                        .append(" hPa");
+                unit = prefs.getString(getString(R.string.pref_pressure_key),
+                        getString(R.string.pref_pressure_default));
+                switch (unit) {
+                    case "mb":
+                        sb.append(Math.round(conditions.getMain().getPressure()))
+                                .append(" mb");
+                        break;
+                    case "mm":
+                        sb.append(Math.round(Misc.mmHg(conditions.getMain().getPressure())))
+                                .append(" mmHg");
+                        break;
+                    case "atm":
+                        sb.append(Math.round(Misc.atm(conditions.getMain().getPressure())))
+                                .append(" atm");
+                        break;
+                    case "kPa":
+                        sb.append(Math.round(Misc.kPa(conditions.getMain().getPressure())))
+                                .append(" kPa");
+                        break;
+                }
                 pressure.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build wind
-                sb.append(Math.round(conditions.getWind().getSpeed()))
-                        .append(" m/s,  ")
-                        .append(Math.round(conditions.getWind().getDeg()))
-                        .append(" °");
+                unit = prefs.getString(getString(R.string.pref_wind_key),
+                        getString(R.string.pref_wind_default));
+                switch (unit) {
+                    case "ms":
+                        sb.append(Math.round(conditions.getWind().getSpeed()))
+                                .append(" ms,  ");
+                        break;
+                    case "kph":
+                        sb.append(Math.round(Misc.kph(conditions.getWind().getSpeed())))
+                                .append(" kph,  ");
+                        break;
+                    case "mph":
+                        sb.append(Math.round(Misc.mph(conditions.getWind().getSpeed())))
+                                .append(" mph,  ");
+                        break;
+                }
+                sb.append(Math.round(conditions.getWind().getDeg())).append("°");
                 wind.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build clouds
                 sb.append(conditions.getClouds().getAll())
                         .append(" %");
                 clouds.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build sunrise & sunset
                 sb.append(getTime(conditions.getSys().getSunrise()))
                         .append(" - ")

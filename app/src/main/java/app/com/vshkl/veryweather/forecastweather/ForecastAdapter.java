@@ -37,35 +37,80 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
         ListForecast lf = forecastList.get(position);
         if (lf != null) {
             StringBuilder sb = new StringBuilder();
+
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String tempUnit = prefs.getString(context.getString(R.string.pref_temp_key),
-                    context.getString(R.string.pref_temp_default));
+
             /*Build max temp*/
-            if (tempUnit.equals("c")) {
-                sb.append(Math.round(lf.getTemp().getMax())).append("°");
-            } else if (tempUnit.equals("f")) {
-                sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMax()))).append("°");
+            String unit = prefs.getString(context.getString(R.string.pref_temp_key),
+                    context.getString(R.string.pref_temp_default));
+            switch (unit) {
+                case "c":
+                    sb.append(Math.round(lf.getTemp().getMax())).append("°");
+                    break;
+                case "f":
+                    sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMax()))).append("°");
+                    break;
             }
-//            sb.append(Math.round(lf.getTemp().getMax())).append("°");
             holder.maxTemp.setText(sb);
             sb.setLength(0);
+
             /*Build min temp*/
-            if (tempUnit.equals("c")) {
-                sb.append(Math.round(lf.getTemp().getMin())).append("°");
-            } else if (tempUnit.equals("f")) {
-                sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMax()))).append("°");
+            switch (unit) {
+                case "c":
+                    sb.append(Math.round(lf.getTemp().getMin())).append("°");
+                    break;
+                case "f":
+                    sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMin()))).append("°");
+                    break;
             }
-//            sb.append(Math.round(lf.getTemp().getMin())).append("°");
             holder.minTemp.setText(sb);
             sb.setLength(0);
+
             /*Build description*/
             holder.description.setText(lf.getWeather().get(0).getDescription());
+
             /*Build wind*/
-            sb.append(lf.getSpeed()).append(" m/s   ").append(Math.round(lf.getDeg())).append("°");
+            unit = prefs.getString(context.getString(R.string.pref_wind_key),
+                    context.getString(R.string.pref_wind_default));
+            switch (unit) {
+                case "ms":
+                    sb.append(Math.round(lf.getSpeed()))
+                            .append(" ms,  ");
+                    break;
+                case "kph":
+                    sb.append(Math.round(Misc.kph(lf.getSpeed())))
+                            .append(" kph,  ");
+                    break;
+                case "mph":
+                    sb.append(Math.round(Misc.mph(lf.getSpeed())))
+                            .append(" mph,  ");
+                    break;
+            }
+            sb.append(Math.round(lf.getDeg())).append("°");
             holder.wind.setText(sb);
             sb.setLength(0);
+
             /*Build pressure*/
-            sb.append(lf.getPressure()).append(" hPa");
+            unit = prefs.getString(context.getString(R.string.pref_pressure_key),
+                    context.getString(R.string.pref_pressure_default));
+            switch (unit) {
+                case "mb":
+                    sb.append(Math.round(lf.getPressure()))
+                            .append(" mb");
+                    break;
+                case "mm":
+                    sb.append(Math.round(Misc.mmHg(lf.getPressure())))
+                            .append(" mmHg");
+                    break;
+                case "atm":
+                    sb.append(Math.round(Misc.atm(lf.getPressure())))
+                            .append(" atm");
+                    break;
+                case "kPa":
+                    sb.append(Math.round(Misc.kPa(lf.getPressure())))
+                            .append(" kPa");
+                    break;
+            }
             holder.pressure.setText(sb);
             sb.setLength(0);
         }
