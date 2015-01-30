@@ -19,7 +19,7 @@
         android:title="@string/pref_units">
 
         <ListPreference
-            android:defaultValue="c"
+            android:defaultValue="@string/pref_temp_default"
             android:entries="@array/units_array"
             android:entryValues="@array/units_values"
             android:key="@string/pref_temp_key"
@@ -27,7 +27,7 @@
             android:title="@string/pref_temp_title" />
 
         <ListPreference
-            android:defaultValue="ms"
+            android:defaultValue="@string/pref_wind_default"
             android:entries="@array/wind_array"
             android:entryValues="@array/wind_values"
             android:key="@string/pref_wind_key"
@@ -35,7 +35,7 @@
             android:title="@string/cur_wind_title" />
 
         <ListPreference
-            android:defaultValue="mb"
+            android:defaultValue="@string/pref_pressure_default"
             android:entries="@array/pressure_array"
             android:entryValues="@array/pressure_values"
             android:key="@string/pref_pressure_key"
