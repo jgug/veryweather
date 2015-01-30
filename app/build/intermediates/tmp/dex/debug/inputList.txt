@@ -1,0 +1,8 @@
+/home/jgug/Work/VeryWeather/app/build/intermediates/classes/debug
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-457260ecd1df8bb9df2fac273121f3954450537e.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/classes-3d4e603e2ffa0a4f26c4abdf995850c051543f18.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-45a1979a7bcb1ecd3eb9c2b0112506149bc6fc95.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/gson-2.3.1-89e8da44764f4ce22790cd2c467792164416712e.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/classes-fc28f6649ca8b099414de7631fa7ecec96543b59.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/classes-59f2515cdb3f23b7753bca85e6f9fee15ecfab8c.jar
+/home/jgug/Work/VeryWeather/app/build/intermediates/pre-dexed/debug/classes-340f8c0933e052b8498f40821e38c8a0ac5ee3ea.jar
