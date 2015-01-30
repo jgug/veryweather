@@ -1,11 +1,14 @@
 package app.com.vshkl.veryweather;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +16,6 @@ import android.view.MenuItem;
 import app.com.vshkl.veryweather.currentweather.CurrentFragment;
 import app.com.vshkl.veryweather.forecastweather.ForecastFragment;
 import app.com.vshkl.veryweather.settings.SettingsActivity;
-import app.com.vshkl.veryweather.weathermap.WeatherMapFragment;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -38,6 +40,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2196F3")));
+        bar.setElevation(10);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -95,8 +100,8 @@ public class MainActivity extends ActionBarActivity {
                     return fragment = new CurrentFragment();
                 case 1:
                     return fragment = new ForecastFragment();
-                case 2:
-                    return fragment = new WeatherMapFragment();
+//                case 2:
+//                    return fragment = new WeatherMapFragment();
                 default:
                     break;
             }
@@ -106,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 

@@ -8,7 +8,7 @@
     android:layout_marginLeft="@dimen/forecast_horizontal_margin"
     android:layout_marginRight="@dimen/forecast_horizontal_margin"
     android:layout_marginTop="@dimen/forecast_vertical_margin"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="0dp"
     card_view:cardElevation="1dp">
 
     <LinearLayout
