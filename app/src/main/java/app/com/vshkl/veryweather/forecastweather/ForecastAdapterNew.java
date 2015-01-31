@@ -77,7 +77,7 @@ public class ForecastAdapterNew extends RecyclerView.Adapter<ForecastViewHolderN
                             .append(" mph,  ");
                     break;
             }
-            sb.append(Math.round(lf.getDeg())).append("°");
+            sb.append(Misc.degToCompass(lf.getDeg()));
             holder.wind.setText(sb);
             sb.setLength(0);
 

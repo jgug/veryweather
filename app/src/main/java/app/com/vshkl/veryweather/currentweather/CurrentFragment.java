@@ -288,7 +288,7 @@ public class CurrentFragment extends Fragment {
                                 .append(" mph,  ");
                         break;
                 }
-                sb.append(Math.round(conditions.getWind().getDeg())).append("°");
+                sb.append(Misc.degToCompass(conditions.getWind().getSpeed()));
                 wind.setText(sb.toString());
                 sb.setLength(0);
 

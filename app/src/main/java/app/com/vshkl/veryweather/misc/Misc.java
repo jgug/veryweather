@@ -40,4 +40,10 @@ public class Misc {
         dateFormat.setTimeZone(TimeZone.getDefault());
         return dateFormat.format(date);
     }
+
+    public static String degToCompass(double value) {
+        String directions[] = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+                "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N "};
+        return directions[(int) Math.floor(((value + 11.25) % 360) / 22.5)];
+    }
 }
