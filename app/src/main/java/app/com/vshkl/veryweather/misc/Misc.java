@@ -1,5 +1,9 @@
 package app.com.vshkl.veryweather.misc;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Misc {
 
     public static int toFahrenheit(int value) {
@@ -28,5 +32,12 @@ public class Misc {
 
     public static double mph(double value) {
         return value * 2.2369362920544;
+    }
+
+    public static String date(int value) {
+        Date date = new Date(value * 1000l);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE,ddMMM");
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        return dateFormat.format(date);
     }
 }

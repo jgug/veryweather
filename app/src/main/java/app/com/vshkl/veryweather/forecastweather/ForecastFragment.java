@@ -12,8 +12,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -33,7 +37,8 @@ import app.com.vshkl.veryweather.forecastweather.forecast.ListForecast;
 public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ForecastAdapter adapter;
+    //    private ForecastAdapter adapter;
+    private ForecastAdapterNew adapter;
     private LinearLayoutManager layoutManager;
 
     private List<ListForecast> forecastList = null;
@@ -50,6 +55,12 @@ public class ForecastFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onStart() {
         updateForecast();
         super.onStart();
@@ -62,6 +73,22 @@ public class ForecastFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
 
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.current_conditions, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            updateForecast();
+            Toast.makeText(getActivity(), "Forecast updated!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -144,7 +171,8 @@ public class ForecastFragment extends Fragment {
         @Override
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
-                adapter = new ForecastAdapter(forecast.getList(), getActivity());
+//                adapter = new ForecastAdapter(forecast.getList(), getActivity());
+                adapter = new ForecastAdapterNew(forecast.getList(), getActivity());
                 recyclerView.setAdapter(adapter);
             }
         }
