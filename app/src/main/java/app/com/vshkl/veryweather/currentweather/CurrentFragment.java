@@ -304,6 +304,10 @@ public class CurrentFragment extends Fragment {
                         .append(getTime(conditions.getSys().getSunset()));
                 sun.setText(sb.toString());
                 sb.setLength(0);
+
+                // Build weather icon
+                String iconStr = conditions.getWeather().get(0).getIcon();
+                icon.setImageResource(Misc.setWeatherImage(iconStr));
             }
         }
     }

@@ -107,6 +107,10 @@ public class ForecastAdapterNew extends RecyclerView.Adapter<ForecastViewHolderN
 
             /*Build date*/
             holder.date.setText(Misc.date(lf.getDt()));
+
+            /*Build weather icon*/
+            String iconStr = lf.getWeather().get(0).getIcon();
+            holder.icon.setImageResource(Misc.setWeatherImage(iconStr));
         }
     }
 

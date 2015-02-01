@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.75"
-                    android:src="@drawable/ic_sun" />
+                    android:src="@drawable/weather_haze" />
 
                 <TextView
                     android:id="@+id/cur_temp_now"
