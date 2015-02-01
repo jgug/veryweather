@@ -7,6 +7,7 @@
 
         <EditTextPreference
             android:defaultValue="@string/pref_location_default"
+            android:inputType="number"
             android:key="@string/pref_location_key"
             android:selectAllOnFocus="true"
             android:summary="@string/pref_location_descr"
@@ -50,7 +51,9 @@
 
         <EditTextPreference
             android:defaultValue="@string/pref_forecast_default"
+            android:inputType="number"
             android:key="@string/pref_forecast_key"
+            android:selectAllOnFocus="true"
             android:summary="@string/pref_forecast_descr"
             android:title="@string/pref_forecast_title" />
 
