@@ -66,10 +66,37 @@ public class ForecastFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fregment_forecast, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
+
+        // TODO: Fix not very proper hide/show behavior
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+            int last = 0;
+
+            @Override
+            public void onScrolled(RecyclerView view, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int current = manager.findFirstVisibleItemPosition();
+
+                if (current > this.last) {
+                    actionBar.hide();
+                } else if (current < this.last) {
+                    actionBar.show();
+                }
+
+                this.last = current;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView view, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
 
         return rootView;
     }
@@ -99,6 +126,7 @@ public class ForecastFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
+
 
     private class GetForecast extends AsyncTask<String, Void, Forecast> {
 
