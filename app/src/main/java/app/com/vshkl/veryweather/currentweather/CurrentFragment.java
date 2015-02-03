@@ -73,8 +73,8 @@ public class CurrentFragment extends Fragment {
      */
     @Override
     public void onStart() {
-        updateCurrentConditions();
         super.onStart();
+        updateCurrentConditions();
     }
 
     @Override
@@ -98,12 +98,22 @@ public class CurrentFragment extends Fragment {
         sunrise = (TextView) rootView.findViewById(R.id.cur_sunrise);
         sunset = (TextView) rootView.findViewById(R.id.cur_sunset);
 
+//        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView
+//                .findViewById(R.id.swipe_refresh);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                updateCurrentConditions();
+//            }
+//        });
+
         return rootView;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.current_conditions, menu);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override

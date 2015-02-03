@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -41,6 +42,7 @@ public class ForecastFragment extends Fragment {
     private RecyclerView recyclerView;
     private ForecastAdapter adapter;
     private LinearLayoutManager layoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public void updateForecast() {
         GetForecast forecast = new GetForecast();
@@ -68,8 +70,18 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fregment_forecast, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateForecast();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         // TODO: Fix not very proper hide/show behavior
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -124,7 +136,6 @@ public class ForecastFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
 
