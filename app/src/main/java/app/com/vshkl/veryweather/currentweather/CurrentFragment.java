@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -26,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,7 +42,6 @@ import app.com.vshkl.veryweather.misc.Misc;
  */
 public class CurrentFragment extends Fragment {
 
-    TextView title;
     ImageView icon;
     TextView description;
     TextView temp_now;
@@ -48,7 +49,8 @@ public class CurrentFragment extends Fragment {
     TextView pressure;
     TextView wind;
     TextView clouds;
-    TextView sun;
+    TextView sunrise;
+    TextView sunset;
 
     public CurrentFragment() {
     }
@@ -86,7 +88,6 @@ public class CurrentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_current, container, false);
 
-        title = (TextView) rootView.findViewById(R.id.cur_location);
         icon = (ImageView) rootView.findViewById(R.id.cur_icon);
         description = (TextView) rootView.findViewById(R.id.cur_description);
         temp_now = (TextView) rootView.findViewById(R.id.cur_temp_now);
@@ -94,7 +95,8 @@ public class CurrentFragment extends Fragment {
         pressure = (TextView) rootView.findViewById(R.id.cur_pressure);
         wind = (TextView) rootView.findViewById(R.id.cur_wind);
         clouds = (TextView) rootView.findViewById(R.id.cur_clouds);
-        sun = (TextView) rootView.findViewById(R.id.cur_sun);
+        sunrise = (TextView) rootView.findViewById(R.id.cur_sunrise);
+        sunset = (TextView) rootView.findViewById(R.id.cur_sunset);
 
         return rootView;
     }
@@ -109,7 +111,6 @@ public class CurrentFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateCurrentConditions();
-            Toast.makeText(getActivity(), "Weather updated!", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -210,13 +211,16 @@ public class CurrentFragment extends Fragment {
         protected void onPostExecute(Conditions conditions) {
             if (conditions != null) {
                 StringBuilder sb = new StringBuilder();
+
                 // Build title
+                DateFormat format = new SimpleDateFormat("HH:mm");
                 sb.append(conditions.getName())
                         .append(", ")
                         .append(conditions.getSys().getCountry())
                         .append(", ")
-                        .append(getTime(conditions.getDt()));
-                title.setText(sb.toString());
+                        .append(format.format(new Date()));
+                ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+                actionBar.setSubtitle(sb.toString());
                 sb.setLength(0);
 
                 // Build description
@@ -298,12 +302,11 @@ public class CurrentFragment extends Fragment {
                 clouds.setText(sb.toString());
                 sb.setLength(0);
 
-                // Build sunrise & sunset
-                sb.append(getTime(conditions.getSys().getSunrise()))
-                        .append(" - ")
-                        .append(getTime(conditions.getSys().getSunset()));
-                sun.setText(sb.toString());
-                sb.setLength(0);
+                // Build sunrise
+                sunrise.setText(getTime(conditions.getSys().getSunrise()));
+
+                // Build sunrise
+                sunset.setText(getTime(conditions.getSys().getSunset()));
 
                 // Build weather icon
                 String iconStr = conditions.getWeather().get(0).getIcon();

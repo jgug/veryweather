@@ -1,98 +1,65 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".CurrentActivity$CurrentFragment">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cur_icon"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/weather_haze" />
+
+    <TextView
+        android:id="@+id/cur_temp_now"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:layout_toRightOf="@+id/cur_icon"
+        android:gravity="center"
+        android:text="3°"
+        android:textSize="96sp" />
+
+    <TextView
+        android:id="@+id/cur_description"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/cur_icon"
+        android:gravity="center"
+        android:text="light snow"
+        android:textSize="24sp" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.60"
+        android:layout_alignParentBottom="true"
         card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="2sp"
-        card_view:cardUseCompatPadding="true">
+        card_view:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:orientation="vertical">
 
-            <!--Current location and refresh time-->
-            <TextView
-                android:id="@+id/cur_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.08"
-                android:textSize="24sp" />
-
-            <!--Weather icon and current temperature-->
+            <!-- Clouds -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.44"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/cur_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.75"
-                    android:src="@drawable/weather_haze" />
-
-                <TextView
-                    android:id="@+id/cur_temp_now"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:gravity="center"
-                    android:textSize="72sp" />
-
-            </LinearLayout>
-
-            <!--Current conditions description-->
-            <TextView
-                android:id="@+id/cur_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.08"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.40"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="1dp"
-        card_view:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:orientation="vertical">
-
-            <!--Cloudiness-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="@string/cur_clouds_title"
                     android:textSize="20sp" />
 
@@ -100,23 +67,23 @@
                     android:id="@+id/cur_clouds"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
-            <!--Humidity-->
+            <!-- Humidity -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="@string/cur_humidity_title"
                     android:textSize="20sp" />
 
@@ -124,23 +91,23 @@
                     android:id="@+id/cur_humidity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
-            <!--Wind-->
+            <!-- Wind -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="@string/cur_wind_title"
                     android:textSize="20sp" />
 
@@ -148,23 +115,23 @@
                     android:id="@+id/cur_wind"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
-            <!--Pressure-->
+            <!-- Pressure -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="@string/cur_pressure_title"
                     android:textSize="20sp" />
 
@@ -172,32 +139,56 @@
                     android:id="@+id/cur_pressure"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
                     android:textSize="20sp" />
 
             </LinearLayout>
 
-            <!--Sunrise and sunset-->
+            <!-- Sunrise -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
-                    android:text="@string/cur_sun_title"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_sunrise"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/cur_sun"
+                    android:id="@+id/cur_sunrise"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <!-- Sunset -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_sunset"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/cur_sunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -206,5 +197,4 @@
 
     </android.support.v7.widget.CardView>
 
-
-</LinearLayout>
+</RelativeLayout>

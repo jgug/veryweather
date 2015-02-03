@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -28,20 +29,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.forecastweather.forecast.Forecast;
-import app.com.vshkl.veryweather.forecastweather.forecast.ListForecast;
 
 public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    //    private ForecastAdapter adapter;
-    private ForecastAdapterNew adapter;
+    private ForecastAdapter adapter;
     private LinearLayoutManager layoutManager;
-
-    private List<ListForecast> forecastList = null;
 
     public void updateForecast() {
         GetForecast forecast = new GetForecast();
@@ -69,7 +68,7 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fregment_forecast_recycleview, container, false);
+        View rootView = inflater.inflate(R.layout.fregment_forecast, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
 
         return rootView;
@@ -85,7 +84,6 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateForecast();
-            Toast.makeText(getActivity(), "Forecast updated!", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -97,7 +95,9 @@ public class ForecastFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
     }
 
     private class GetForecast extends AsyncTask<String, Void, Forecast> {
@@ -171,9 +171,15 @@ public class ForecastFragment extends Fragment {
         @Override
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
-//                adapter = new ForecastAdapter(forecast.getList(), getActivity());
-                adapter = new ForecastAdapterNew(forecast.getList(), getActivity());
+                adapter = new ForecastAdapter(forecast.getList(), getActivity());
                 recyclerView.setAdapter(adapter);
+                ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+                StringBuilder sb = new StringBuilder();
+                DateFormat format = new SimpleDateFormat("HH:mm");
+                sb.append(forecast.getCity().getName()).append(", ")
+                        .append(forecast.getCity().getCountry()).append(", ")
+                        .append(format.format(new Date()));
+                actionBar.setSubtitle(sb.toString());
             }
         }
     }

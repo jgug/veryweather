@@ -40,30 +40,21 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-            /*Build max temp*/
+            /*Build temp*/
             String unit = prefs.getString(context.getString(R.string.pref_temp_key),
                     context.getString(R.string.pref_temp_default));
             switch (unit) {
                 case "c":
-                    sb.append(Math.round(lf.getTemp().getMax())).append("°");
+                    sb.append(Math.round(lf.getTemp().getMax())).append("°")
+                            .append("/").append(Math.round(lf.getTemp().getMin())).append("°");
                     break;
                 case "f":
-                    sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMax()))).append("°");
+                    sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMax()))).append("°")
+                            .append("/")
+                            .append(Math.round(Misc.toFahrenheit(lf.getTemp().getMin()))).append("°");
                     break;
             }
-            holder.maxTemp.setText(sb);
-            sb.setLength(0);
-
-            /*Build min temp*/
-            switch (unit) {
-                case "c":
-                    sb.append(Math.round(lf.getTemp().getMin())).append("°");
-                    break;
-                case "f":
-                    sb.append(Math.round(Misc.toFahrenheit(lf.getTemp().getMin()))).append("°");
-                    break;
-            }
-            holder.minTemp.setText(sb);
+            holder.temp.setText(sb.toString());
             sb.setLength(0);
 
             /*Build description*/
@@ -86,7 +77,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
                             .append(" mph,  ");
                     break;
             }
-            sb.append(Math.round(lf.getDeg())).append("°");
+            sb.append(Misc.degToCompass(lf.getDeg()));
             holder.wind.setText(sb);
             sb.setLength(0);
 
@@ -113,6 +104,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
             }
             holder.pressure.setText(sb);
             sb.setLength(0);
+
+            /*Build date*/
+            holder.date.setText(Misc.date(lf.getDt()));
+
+            /*Build weather icon*/
+            String iconStr = lf.getWeather().get(0).getIcon();
+            holder.icon.setImageResource(Misc.setWeatherImage(iconStr));
         }
     }
 
@@ -125,3 +123,4 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
         }
     }
 }
+
