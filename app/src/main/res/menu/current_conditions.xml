@@ -4,7 +4,7 @@
     tools:context=".CurrentActivity">
     <item
         android:id="@+id/action_refresh"
-        android:icon="@drawable/action_bar_refresh"
+        android:icon="@drawable/ic_menu_refresh"
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom" />
 </menu>

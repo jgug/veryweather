@@ -1,9 +1,13 @@
 package app.com.vshkl.veryweather.currentweather;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -24,11 +27,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.currentweather.weather.Conditions;
+import app.com.vshkl.veryweather.misc.Misc;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -37,7 +42,6 @@ import app.com.vshkl.veryweather.currentweather.weather.Conditions;
  */
 public class CurrentFragment extends Fragment {
 
-    TextView title;
     ImageView icon;
     TextView description;
     TextView temp_now;
@@ -45,25 +49,32 @@ public class CurrentFragment extends Fragment {
     TextView pressure;
     TextView wind;
     TextView clouds;
-    TextView sun;
+    TextView sunrise;
+    TextView sunset;
 
     public CurrentFragment() {
     }
 
     public void updateCurrentConditions() {
-        CurrentWeather currentWeather = new CurrentWeather();
-        currentWeather.execute("625144");
+        GetCurrentWeather currentWeather = new GetCurrentWeather();
+
+        // Load SharedPreference for location
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+
+        currentWeather.execute(location);
     }
 
     /**
      * Called when the Fragment is visible to the user.  This is generally
-     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * tied to Activity.onStart of the containing
      * Activity's lifecycle.
      */
     @Override
     public void onStart() {
-        updateCurrentConditions();
         super.onStart();
+        updateCurrentConditions();
     }
 
     @Override
@@ -77,7 +88,6 @@ public class CurrentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_current, container, false);
 
-        title = (TextView) rootView.findViewById(R.id.cur_location);
         icon = (ImageView) rootView.findViewById(R.id.cur_icon);
         description = (TextView) rootView.findViewById(R.id.cur_description);
         temp_now = (TextView) rootView.findViewById(R.id.cur_temp_now);
@@ -85,7 +95,17 @@ public class CurrentFragment extends Fragment {
         pressure = (TextView) rootView.findViewById(R.id.cur_pressure);
         wind = (TextView) rootView.findViewById(R.id.cur_wind);
         clouds = (TextView) rootView.findViewById(R.id.cur_clouds);
-        sun = (TextView) rootView.findViewById(R.id.cur_sun);
+        sunrise = (TextView) rootView.findViewById(R.id.cur_sunrise);
+        sunset = (TextView) rootView.findViewById(R.id.cur_sunset);
+
+//        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView
+//                .findViewById(R.id.swipe_refresh);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                updateCurrentConditions();
+//            }
+//        });
 
         return rootView;
     }
@@ -93,6 +113,7 @@ public class CurrentFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.current_conditions, menu);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -100,13 +121,12 @@ public class CurrentFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateCurrentConditions();
-            Toast.makeText(getActivity(), "Weather updated!", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private class CurrentWeather extends AsyncTask<String, Void, Conditions> {
+    private class GetCurrentWeather extends AsyncTask<String, Void, Conditions> {
 
         private String getTime(long time) {
             Date date = new Date(time * 1000l);
@@ -151,14 +171,13 @@ public class CurrentFragment extends Fragment {
                         .build();
 
                 URL url = new URL(buildUri.toString());
-                Log.v("URL", url.toString());
+                Log.v("Current URL", url.toString());
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                StringBuilder stringb = new StringBuilder();
                 if (inputStream == null) {
                     return null;
                 }
@@ -202,51 +221,106 @@ public class CurrentFragment extends Fragment {
         protected void onPostExecute(Conditions conditions) {
             if (conditions != null) {
                 StringBuilder sb = new StringBuilder();
+
                 // Build title
+                DateFormat format = new SimpleDateFormat("HH:mm");
                 sb.append(conditions.getName())
                         .append(", ")
                         .append(conditions.getSys().getCountry())
                         .append(", ")
-                        .append(getTime(conditions.getDt()));
-                title.setText(sb.toString());
+                        .append(format.format(new Date()));
+                ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+                actionBar.setSubtitle(sb.toString());
                 sb.setLength(0);
+
                 // Build description
                 sb.append(conditions.getWeather().get(0).getDescription());
                 description.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build now temp
-                sb.append(Math.round(conditions.getMain().getTemp()))
-                        .append("°");
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String unit = prefs.getString(getString(R.string.pref_temp_key),
+                        getString(R.string.pref_temp_default));
+                switch (unit) {
+                    case "c":
+                        sb.append(Math.round(conditions.getMain().getTemp()))
+                                .append("°");
+                        break;
+                    case "f":
+                        sb.append(Math.round(Misc.toFahrenheit(conditions.getMain().getTemp())))
+                                .append("°");
+                        break;
+                }
                 temp_now.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build humidity
                 sb.append(conditions.getMain().getHumidity())
                         .append(" %");
                 humidity.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build pressure
-                sb.append(Math.round(conditions.getMain().getPressure()))
-                        .append(" hPa");
+                unit = prefs.getString(getString(R.string.pref_pressure_key),
+                        getString(R.string.pref_pressure_default));
+                switch (unit) {
+                    case "mb":
+                        sb.append(Math.round(conditions.getMain().getPressure()))
+                                .append(" mb");
+                        break;
+                    case "mm":
+                        sb.append(Math.round(Misc.mmHg(conditions.getMain().getPressure())))
+                                .append(" mmHg");
+                        break;
+                    case "atm":
+                        sb.append(Math.round(Misc.atm(conditions.getMain().getPressure())))
+                                .append(" atm");
+                        break;
+                    case "kPa":
+                        sb.append(Math.round(Misc.kPa(conditions.getMain().getPressure())))
+                                .append(" kPa");
+                        break;
+                }
                 pressure.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build wind
-                sb.append(Math.round(conditions.getWind().getSpeed()))
-                        .append(" m/s,  ")
-                        .append(Math.round(conditions.getWind().getDeg()))
-                        .append(" °");
+                unit = prefs.getString(getString(R.string.pref_wind_key),
+                        getString(R.string.pref_wind_default));
+                switch (unit) {
+                    case "ms":
+                        sb.append(Math.round(conditions.getWind().getSpeed()))
+                                .append(" ms,  ");
+                        break;
+                    case "kph":
+                        sb.append(Math.round(Misc.kph(conditions.getWind().getSpeed())))
+                                .append(" kph,  ");
+                        break;
+                    case "mph":
+                        sb.append(Math.round(Misc.mph(conditions.getWind().getSpeed())))
+                                .append(" mph,  ");
+                        break;
+                }
+                sb.append(Misc.degToCompass(conditions.getWind().getSpeed()));
                 wind.setText(sb.toString());
                 sb.setLength(0);
+
                 // Build clouds
                 sb.append(conditions.getClouds().getAll())
                         .append(" %");
                 clouds.setText(sb.toString());
                 sb.setLength(0);
-                // Build sunrise & sunset
-                sb.append(getTime(conditions.getSys().getSunrise()))
-                        .append(" - ")
-                        .append(getTime(conditions.getSys().getSunset()));
-                sun.setText(sb.toString());
-                sb.setLength(0);
+
+                // Build sunrise
+                sunrise.setText(getTime(conditions.getSys().getSunrise()));
+
+                // Build sunrise
+                sunset.setText(getTime(conditions.getSys().getSunset()));
+
+                // Build weather icon
+                String iconStr = conditions.getWeather().get(0).getIcon();
+                icon.setImageResource(Misc.setWeatherImage(iconStr));
             }
         }
     }

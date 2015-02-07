@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Units preference-->
+    <string-array name="units_array">
+        <item>Celsius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+    </string-array>
+
+    <string-array name="units_values">
+        <item>c</item>
+        <item>f</item>
+    </string-array>
+
+    <!--Wind speed preference-->
+    <string-array name="wind_array">
+        <item>Meters per second (m/s)</item>
+        <item>Kilometers per hour (km/h)</item>
+        <item>Miles per hour (mph)</item>
+    </string-array>
+
+    <string-array name="wind_values">
+        <item>ms</item>
+        <item>kph</item>
+        <item>mph</item>
+    </string-array>
+
+    <!--Pressure preference-->
+    <string-array name="pressure_array">
+        <item>Millibars (mb)</item>
+        <item>Millimeters of mercury (mm)</item>
+        <item>Atmospheres (atm)</item>
+        <item>Kilopascal (kPa)</item>
+    </string-array>
+
+    <string-array name="pressure_values">
+        <item>mb</item>
+        <item>mm</item>
+        <item>atm</item>
+        <item>kPa</item>
+    </string-array>
+
+</resources>
