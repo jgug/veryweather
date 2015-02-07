@@ -1,5 +1,45 @@
-# Created by .ignore support plugin (hsz.mobi)
-.idea
-app/build
-build
+# built application files
+*.apk
+*.ap_
 
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+build.xml
+
+# The IntelliJ .iws file tracks every window position, etc,
+# so we don't want to see every change
+/attendant.iws
+/out
+
+#intellij files
+.idea/workspace.xml
+
+# Eclipse-generated
+/.classpath
+/.project
+/.settings
+
+# OSX files
+.DS_Store
+
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.gradle
+build/
+
+#crashlitycs
+/crashlytics.properties
+/assets/crashlytics-build.properties
+/res/values/com_crashlytics_export_strings.xml
