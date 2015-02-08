@@ -1,29 +1,25 @@
-# README #
+VeryWeather
+==========================================================================================
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+Wather app. Get weather information from [OpenWeatherMap](http://openweathermap.org/)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Have two screens: current weather scrrent and weather forecast screen.
 
-### How do I get set up? ###
+In settings could be set:
+* Location as city ID for now
+* Temperature units
+    - Celsius
+    - Fahrenheit
+* Wind speed units
+    - Meters per second
+    - Kilometers per hour
+    - Miles per hour
+* Pressure units
+    - Millibars
+    - Millimeters of mercury
+    - Atmospheres
+    - Kilopascals
+* Number of days for forecast (from 5 to 16 days)
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
