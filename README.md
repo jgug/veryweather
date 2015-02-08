@@ -7,6 +7,12 @@ Wather app. Get weather information from [OpenWeatherMap](http://openweathermap.
 ### Screens
 Have two screens: current weather scrrent and weather forecast screen.
 
+#### Current
+![Current](http://i.imgur.com/SyqE5Uel.png?1)
+
+#### Forecast
+![Forecast](http://i.imgur.com/h5IaSTll.png?1)
+
 ### Settings
 * Location as city ID for now
 * Temperature units
