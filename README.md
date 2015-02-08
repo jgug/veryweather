@@ -1,12 +1,13 @@
 VeryWeather
-==========================================================================================
+========================================================================================
 
-
+### Description
 Wather app. Get weather information from [OpenWeatherMap](http://openweathermap.org/)
 
+### Screens
 Have two screens: current weather scrrent and weather forecast screen.
 
-In settings could be set:
+### Settings
 * Location as city ID for now
 * Temperature units
     - Celsius
@@ -21,5 +22,3 @@ In settings could be set:
     - Atmospheres
     - Kilopascals
 * Number of days for forecast (from 5 to 16 days)
-
-
