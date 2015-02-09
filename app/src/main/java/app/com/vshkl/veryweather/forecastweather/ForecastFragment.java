@@ -1,5 +1,6 @@
 package app.com.vshkl.veryweather.forecastweather;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -59,12 +61,6 @@ public class ForecastFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        updateForecast();
-        super.onStart();
     }
 
     @Override
@@ -111,11 +107,6 @@ public class ForecastFragment extends Fragment {
         });
 
         return rootView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.current_conditions, menu);
     }
 
     @Override

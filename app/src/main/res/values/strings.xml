@@ -7,6 +7,11 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <!--SharedPreferences name strings-->
+    <string name="weather_prefs">WEATHER_PREF</string>
+    <string name="current_pref">CURRENT_PREF</string>
+    <string name="forecast_pref">FORECAST_PREF</string>
+
     <!-- Titles for current condition screen -->
     <string name="cur_clouds_title">Cloudiness</string>
     <string name="cur_humidity_title">Humidity</string>
@@ -22,13 +27,16 @@
     <string name="pref_location_descr">Specify city ID</string>
     <string name="pref_location_default">625144</string>
 
+    <!--Empty list text-->
+    <string name="forecast_empty">Pull to load forecast</string>
+
     <!--Settings units-->
     <string name="pref_units">Units</string>
     <!--Temperature-->
     <string name="pref_temp_title">Temperature</string>
     <string name="pref_temp_key">pref_temp_key</string>
     <string name="pref_temp_desrc">Select temperature units</string>
-    <string name="pref_temp_default">metric</string>
+    <string name="pref_temp_default">c</string>
     <!--Wind-->
     <string name="pref_wind_title">Wind</string>
     <string name="pref_wind_key">pref_wind_key</string>

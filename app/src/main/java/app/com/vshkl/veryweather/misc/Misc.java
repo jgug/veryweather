@@ -191,4 +191,10 @@ public class Misc {
 
         return weatherConditions.get(value);
     }
+
+    public static String getTime(long time) {
+        Date date = new Date(time * 1000l);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(date);
+    }
 }
