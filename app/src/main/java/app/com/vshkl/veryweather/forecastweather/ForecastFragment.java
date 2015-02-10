@@ -38,6 +38,7 @@ import java.util.Date;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.forecastweather.forecast.Forecast;
+import app.com.vshkl.veryweather.misc.WeatherStorage;
 
 public class ForecastFragment extends Fragment {
 
@@ -45,6 +46,8 @@ public class ForecastFragment extends Fragment {
     private ForecastAdapter adapter;
     private LinearLayoutManager layoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private Forecast forecast;
 
     public void updateForecast() {
         GetForecast forecast = new GetForecast();
@@ -57,10 +60,46 @@ public class ForecastFragment extends Fragment {
         forecast.execute(location);
     }
 
+    public void fillForecast(Forecast forecast) {
+        adapter = new ForecastAdapter(forecast.getList(), getActivity());
+        recyclerView.setAdapter(adapter);
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        StringBuilder sb = new StringBuilder();
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        sb.append(forecast.getCity().getName()).append(", ")
+                .append(forecast.getCity().getCountry()).append(", ")
+                .append(format.format(new Date()));
+        actionBar.setSubtitle(sb.toString());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (WeatherStorage.hasFile(getActivity(), "forecast_weather")) {
+            Gson gson = new Gson();
+            String json = WeatherStorage.readWeather(getActivity(), "forecast_weather");
+            forecast = gson.fromJson(json, Forecast.class);
+            fillForecast(forecast);
+        } else {
+            updateForecast();
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(forecast);
+        Log.v("TO JSON", json);
+        WeatherStorage.storeWeather(getActivity(), "forecast_weather", json);
     }
 
     @Override
@@ -146,8 +185,6 @@ public class ForecastFragment extends Fragment {
             String format = "json";
             String units = "metric";
 
-            Forecast forecast = null;
-
             try {
                 final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
                 final String QUERY_PARAM = "id";
@@ -201,15 +238,7 @@ public class ForecastFragment extends Fragment {
         @Override
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
-                adapter = new ForecastAdapter(forecast.getList(), getActivity());
-                recyclerView.setAdapter(adapter);
-                ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-                StringBuilder sb = new StringBuilder();
-                DateFormat format = new SimpleDateFormat("HH:mm");
-                sb.append(forecast.getCity().getName()).append(", ")
-                        .append(forecast.getCity().getCountry()).append(", ")
-                        .append(format.format(new Date()));
-                actionBar.setSubtitle(sb.toString());
+                fillForecast(forecast);
             }
         }
     }

@@ -183,6 +183,7 @@ public class CurrentFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        // TODO: Change weather refresh time on old time if load from file
         if (WeatherStorage.hasFile(getActivity(), "current_weather")) {
             Gson gson = new Gson();
             String json = WeatherStorage.readWeather(getActivity(), "current_weather");
