@@ -249,11 +249,6 @@ public class CurrentFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            updateCurrentConditions();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
