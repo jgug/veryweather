@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    android:background="@color/cardview_light_background">
 
     <!-- Icon -->
     <ImageView
@@ -20,7 +21,7 @@
     <TextView
         android:id="@+id/forecast_description"
         android:layout_width="160dp"
-        android:layout_height="24dp"
+        android:layout_height="26dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/forecast_icon"
@@ -44,7 +45,7 @@
     <TextView
         android:id="@+id/forecast_wind"
         android:layout_width="160dp"
-        android:layout_height="20dp"
+        android:layout_height="19dp"
         android:layout_below="@+id/forecast_description"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/forecast_icon"
@@ -55,7 +56,7 @@
     <TextView
         android:id="@+id/forecast_pressure"
         android:layout_width="160dp"
-        android:layout_height="20dp"
+        android:layout_height="19dp"
         android:layout_below="@+id/forecast_wind"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/forecast_icon"
