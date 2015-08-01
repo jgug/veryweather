@@ -1,183 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<uk.co.imallan.jellyrefresh.JellyRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:text="@string/loading"
+    android:textColor="#FFFFFF"
+    app:jellyColor="#2196F3"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/cur_icon"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/weather_haze" />
-
-    <TextView
-        android:id="@+id/cur_temp_now"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:layout_toRightOf="@+id/cur_icon"
-        android:gravity="center"
-        android:text="3°"
-        android:textSize="96sp" />
-
-    <TextView
-        android:id="@+id/cur_description"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/cur_icon"
-        android:gravity="center"
-        android:text="light snow"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="10dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/cur_icon"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/weather_haze" />
+
+        <TextView
+            android:id="@+id/cur_temp_now"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:layout_toRightOf="@+id/cur_icon"
+            android:gravity="center"
+            android:text="3°"
+            android:textSize="96sp" />
+
+        <TextView
+            android:id="@+id/cur_description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+            android:layout_height="48dp"
+            android:layout_below="@+id/cur_icon"
+            android:gravity="center"
+            android:text="light snow"
+            android:textSize="24sp" />
 
-            <!-- Clouds -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_clouds_title"
-                android:textSize="20sp" />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            card_view:cardCornerRadius="0dp"
+            card_view:cardElevation="10dp">
 
-            <TextView
-                android:id="@+id/cur_clouds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
-            <!-- Humidity -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_clouds"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_humidity_title"
-                android:textSize="20sp" />
+                <!-- Clouds -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_clouds_title"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cur_humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_clouds"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/cur_clouds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-            <!-- Wind -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_humidity"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_wind_title"
-                android:textSize="20sp" />
+                <!-- Humidity -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_clouds"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_humidity_title"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cur_wind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_humidity"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/cur_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_clouds"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-            <!-- Pressure -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_wind"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_pressure_title"
-                android:textSize="20sp" />
+                <!-- Wind -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_humidity"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_wind_title"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cur_pressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_wind"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/cur_wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_humidity"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-            <!-- Sunrise -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_pressure"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_sunrise"
-                android:textSize="20sp" />
+                <!-- Pressure -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_wind"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_pressure_title"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cur_sunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/cur_pressure"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/cur_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_wind"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-            <!-- Sunset -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_below="@+id/cur_sunrise"
-                android:layout_alignParentLeft="true"
-                android:gravity="center_vertical"
-                android:text="@string/cur_sunset"
-                android:textSize="20sp" />
+                <!-- Sunrise -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_pressure"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_sunrise"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cur_sunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_below="@+id/cur_sunrise"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical|end"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/cur_sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/cur_pressure"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-        </RelativeLayout>
+                <!-- Sunset -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_below="@+id/cur_sunrise"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/cur_sunset"
+                    android:textSize="20sp" />
 
-    </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/cur_sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_below="@+id/cur_sunrise"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp" />
 
-</RelativeLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+</uk.co.imallan.jellyrefresh.JellyRefreshLayout>
 

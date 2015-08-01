@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#2196F3")));
-        bar.setElevation(10);
+        bar.setElevation(0);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

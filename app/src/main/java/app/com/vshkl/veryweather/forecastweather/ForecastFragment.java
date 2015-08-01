@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,13 +40,14 @@ import java.util.Date;
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.forecastweather.forecast.Forecast;
 import app.com.vshkl.veryweather.misc.WeatherStorage;
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ForecastAdapter adapter;
     private LinearLayoutManager layoutManager;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private JellyRefreshLayout jellyRefreshLayout;
 
     private Forecast forecast;
 
@@ -63,7 +65,7 @@ public class ForecastFragment extends Fragment {
     public void fillForecast(Forecast forecast) {
         adapter = new ForecastAdapter(forecast.getList(), getActivity());
         recyclerView.setAdapter(adapter);
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         StringBuilder sb = new StringBuilder();
         DateFormat format = new SimpleDateFormat("HH:mm");
         sb.append(forecast.getCity().getName()).append(", ")
@@ -109,39 +111,11 @@ public class ForecastFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.cardList);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        jellyRefreshLayout = (JellyRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        jellyRefreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
                 updateForecast();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-        // TODO: Fix not very proper hide/show behavior
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-            int last = 0;
-
-            @Override
-            public void onScrolled(RecyclerView view, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int current = manager.findFirstVisibleItemPosition();
-
-                if (current > this.last) {
-                    actionBar.hide();
-                } else if (current < this.last) {
-                    actionBar.show();
-                }
-
-                this.last = current;
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView view, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
@@ -239,6 +213,7 @@ public class ForecastFragment extends Fragment {
         protected void onPostExecute(Forecast forecast) {
             if (forecast != null) {
                 fillForecast(forecast);
+                jellyRefreshLayout.finishRefreshing();
             }
         }
     }

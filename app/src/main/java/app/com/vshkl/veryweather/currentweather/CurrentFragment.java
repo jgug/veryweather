@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import app.com.vshkl.veryweather.currentweather.weather.Conditions;
 import app.com.vshkl.veryweather.currentweather.weather.Weather;
 import app.com.vshkl.veryweather.misc.Misc;
 import app.com.vshkl.veryweather.misc.WeatherStorage;
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -54,6 +56,7 @@ public class CurrentFragment extends Fragment {
     TextView clouds;
     TextView sunrise;
     TextView sunset;
+    JellyRefreshLayout jellyRefreshLayout;
 
     Conditions conditions;
 
@@ -81,7 +84,7 @@ public class CurrentFragment extends Fragment {
                 .append(conditions.getSys().getCountry())
                 .append(", ")
                 .append(format.format(new Date()));
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setSubtitle(sb.toString());
         sb.setLength(0);
 
@@ -226,6 +229,14 @@ public class CurrentFragment extends Fragment {
         clouds = (TextView) rootView.findViewById(R.id.cur_clouds);
         sunrise = (TextView) rootView.findViewById(R.id.cur_sunrise);
         sunset = (TextView) rootView.findViewById(R.id.cur_sunset);
+        jellyRefreshLayout = (JellyRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+
+        jellyRefreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
+            @Override
+            public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
+                updateCurrentConditions();
+            }
+        });
 
         return rootView;
     }
@@ -233,7 +244,7 @@ public class CurrentFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.current_conditions, menu);
-        ((ActionBarActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -333,6 +344,7 @@ public class CurrentFragment extends Fragment {
         protected void onPostExecute(Conditions conditions) {
             if (conditions != null) {
                 fillConditions(conditions);
+                jellyRefreshLayout.finishRefreshing();
             }
         }
     }
