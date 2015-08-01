@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +33,6 @@ import java.util.Date;
 
 import app.com.vshkl.veryweather.R;
 import app.com.vshkl.veryweather.currentweather.weather.Conditions;
-import app.com.vshkl.veryweather.currentweather.weather.Weather;
 import app.com.vshkl.veryweather.misc.Misc;
 import app.com.vshkl.veryweather.misc.WeatherStorage;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
