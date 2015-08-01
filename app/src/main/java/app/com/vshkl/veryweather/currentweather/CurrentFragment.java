@@ -187,6 +187,7 @@ public class CurrentFragment extends Fragment {
     public void onStart() {
         super.onStart();
         // TODO: Change weather refresh time on old time if load from file
+        Log.v("Start", "PEW!");
         if (WeatherStorage.hasFile(getActivity(), "current_weather")) {
             Gson gson = new Gson();
             String json = WeatherStorage.readWeather(getActivity(), "current_weather");
@@ -244,7 +245,6 @@ public class CurrentFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.current_conditions, menu);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
