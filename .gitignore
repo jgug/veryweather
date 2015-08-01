@@ -49,3 +49,7 @@ build/
 /crashlytics.properties
 /assets/crashlytics-build.properties
 /res/values/com_crashlytics_export_strings.xml
+app/build
+app/src/androidTest/java
+build/intermediates
+gradle/wrapper
